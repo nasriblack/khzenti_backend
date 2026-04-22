@@ -1,12 +1,9 @@
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 const JWT_EXPIRES_IN: number | any = !process.env.JWT_EXPIRES_IN || "7d";
 
 const JWT_SECRET: string | any = !process.env.JWT_SECRET;
-
-if (!JWT_SECRET || !JWT_EXPIRES_IN) {
-  throw new Error("Missing JWT_SECRET");
-}
 
 // const JWT_REFRESH_SECRET =
 //   process.env.JWT_REFRESH_SECRET || "your-refresh-secret";
