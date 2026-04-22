@@ -1,55 +1,56 @@
-import { Request, Response, NextFunction } from 'express';
-import { Prisma } from '@prisma/client';
+import { PrismaClient } from "@prisma/client/extension";
+import { Request, Response, NextFunction } from "express";
 
 export interface AppError extends Error {
   statusCode?: number;
   isOperational?: boolean;
+  code?: string;
 }
 
 export const errorHandler = (
   err: AppError,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Response => {
   let statusCode = err.statusCode || 500;
-  let message = err.message || 'Internal Server Error';
+  let message = err.message || "Internal Server Error";
 
   // Prisma errors
-  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+  if (err instanceof PrismaClient.PrismaClientKnownRequestError) {
     statusCode = 400;
-    
-    if (err.code === 'P2002') {
-      message = 'A record with this value already exists';
-    } else if (err.code === 'P2025') {
-      message = 'Record not found';
-    } else if (err.code === 'P2003') {
-      message = 'Foreign key constraint failed';
+
+    if (err.code === "P2002") {
+      message = "A record with this value already exists";
+    } else if (err.code === "P2025") {
+      message = "Record not found";
+    } else if (err.code === "P2003") {
+      message = "Foreign key constraint failed";
     }
   }
 
   // Validation errors
-  if (err instanceof Prisma.PrismaClientValidationError) {
+  if (err instanceof PrismaClient.PrismaClientValidationError) {
     statusCode = 400;
-    message = 'Invalid data provided';
+    message = "Invalid data provided";
   }
 
   // Log error in development
-  if (process.env.NODE_ENV === 'development') {
-    console.error('Error:', err);
+  if (process.env.NODE_ENV === "development") {
+    console.error("Error:", err);
   }
 
   return res.status(statusCode).json({
     success: false,
     error: message,
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
   });
 };
 
 export const notFoundHandler = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Response => {
   return res.status(404).json({
     success: false,
@@ -61,7 +62,11 @@ export class AppErrorClass extends Error implements AppError {
   statusCode: number;
   isOperational: boolean;
 
-  constructor(message: string, statusCode: number = 500, isOperational: boolean = true) {
+  constructor(
+    message: string,
+    statusCode: number = 500,
+    isOperational: boolean = true,
+  ) {
     super(message);
     this.statusCode = statusCode;
     this.isOperational = isOperational;
