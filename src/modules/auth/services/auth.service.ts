@@ -1,9 +1,9 @@
-import { prisma } from '../../../config/database';
-import { hashPassword, comparePassword } from '../../../utils/password.util';
-import { generateTokenPair } from '../../../utils/jwt.util';
-import { RegisterDTO } from '../dto/register.dto';
-import { LoginDTO } from '../dto/login.dto';
-import { AppErrorClass } from '../../../middleware/error.middleware';
+import { prisma } from "../../../config/database";
+import { hashPassword, comparePassword } from "../../../utils/password.util";
+import { generateTokenPair } from "../../../utils/jwt.util";
+import { RegisterDTO } from "../dto/register.dto";
+import { LoginDTO } from "../dto/login.dto";
+import { AppErrorClass } from "../../../middleware/error.middleware";
 
 export class AuthService {
   async register(data: RegisterDTO) {
@@ -13,7 +13,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new AppErrorClass('User with this email already exists', 400);
+      throw new AppErrorClass("User with this email already exists", 400);
     }
 
     // Hash password
@@ -24,12 +24,10 @@ export class AuthService {
       data: {
         email: data.email,
         password: hashedPassword,
-        name: data.name,
       },
       select: {
         id: true,
         email: true,
-        name: true,
         createdAt: true,
       },
     });
@@ -53,14 +51,14 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new AppErrorClass('Invalid credentials', 401);
+      throw new AppErrorClass("Invalid credentials", 401);
     }
 
     // Compare passwords
     const isPasswordValid = await comparePassword(data.password, user.password);
 
     if (!isPasswordValid) {
-      throw new AppErrorClass('Invalid credentials', 401);
+      throw new AppErrorClass("Invalid credentials", 401);
     }
 
     // Generate tokens
@@ -83,8 +81,11 @@ export class AuthService {
   async refreshToken(refreshToken: string) {
     // In a real app, you'd verify the refresh token from database
     // For now, we'll just generate new tokens
-    const { verifyRefreshToken, generateTokenPair } = require('../../../utils/jwt.util');
-    
+    const {
+      verifyRefreshToken,
+      generateTokenPair,
+    } = require("../../../utils/jwt.util");
+
     const payload = verifyRefreshToken(refreshToken);
     const tokens = generateTokenPair(payload);
 
