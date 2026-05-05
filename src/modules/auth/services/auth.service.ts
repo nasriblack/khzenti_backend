@@ -13,7 +13,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new AppErrorClass("User with this email already exists", 400);
+      throw new AppErrorClass("User with this email already exists");
     }
 
     // Hash password
@@ -51,14 +51,14 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new AppErrorClass("Invalid credentials", 401);
+      throw new AppErrorClass("Invalid credentials", "401");
     }
 
     // Compare passwords
     const isPasswordValid = await comparePassword(data.password, user.password);
 
     if (!isPasswordValid) {
-      throw new AppErrorClass("Invalid credentials", 401);
+      throw new AppErrorClass("Invalid credentials", "401");
     }
 
     // Generate tokens

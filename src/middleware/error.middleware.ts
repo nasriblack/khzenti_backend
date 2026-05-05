@@ -1,9 +1,12 @@
-import { PrismaClient } from "@prisma/client/extension";
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientValidationError,
+} from "@prisma/client/runtime/client";
 import { Request, Response, NextFunction } from "express";
+import { ZodError } from "zod";
 
-export interface AppError extends Error {
-  statusCode?: number;
-  isOperational?: boolean;
+export interface AppError extends Object {
+  message: string;
   code?: string;
 }
 
@@ -13,12 +16,36 @@ export const errorHandler = (
   res: Response,
   next: NextFunction,
 ): Response => {
-  let statusCode = err.statusCode || 500;
-  let message = err.message || "Internal Server Error";
+  let statusCode = 500;
+  let message = "Internal Server Error";
+  console.log("checking the err", err);
 
   // Prisma errors
-  if (err instanceof PrismaClient.PrismaClientKnownRequestError) {
-    statusCode = 400;
+  // if (err instanceof PrismaClient.PrismaClientKnownRequestError) {
+  //   statusCode = 400;
+
+  //   if (err.code === "P2002") {
+  //     message = "A record with this value already exists";
+  //   } else if (err.code === "P2025") {
+  //     message = "Record not found";
+  //   } else if (err.code === "P2003") {
+  //     message = "Foreign key constraint failed";
+  //   }
+  // }
+
+  // // Validation errors
+  // if (err instanceof PrismaClient.PrismaClientValidationError) {
+  //   statusCode = 400;
+  //   message = "Invalid data provided";
+  // }
+
+  // // Log error in development
+  // if (process.env.NODE_ENV === "development") {
+  //   console.error("Error:", err);
+  // }
+
+  if (err instanceof PrismaClientKnownRequestError) {
+    let message = "Database error";
 
     if (err.code === "P2002") {
       message = "A record with this value already exists";
@@ -27,23 +54,28 @@ export const errorHandler = (
     } else if (err.code === "P2003") {
       message = "Foreign key constraint failed";
     }
+
+    if (err instanceof PrismaClientValidationError) {
+      statusCode = 400;
+      message = "Invalid data provided";
+    }
+
+    return res.status(400).json({
+      success: false,
+      error: message,
+    });
   }
 
-  // Validation errors
-  if (err instanceof PrismaClient.PrismaClientValidationError) {
-    statusCode = 400;
-    message = "Invalid data provided";
+  if (err instanceof ZodError) {
+    return res.status(400).json({
+      success: false,
+      error: err.errors.map((e) => e.message),
+    });
   }
 
-  // Log error in development
-  if (process.env.NODE_ENV === "development") {
-    console.error("Error:", err);
-  }
-
-  return res.status(statusCode).json({
+  return res.status(400).json({
     success: false,
-    error: message,
-    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+    error: err?.message || "Something went wrong",
   });
 };
 
@@ -59,17 +91,13 @@ export const notFoundHandler = (
 };
 
 export class AppErrorClass extends Error implements AppError {
-  statusCode: number;
-  isOperational: boolean;
+  message: string;
+  code?: string;
 
-  constructor(
-    message: string,
-    statusCode: number = 500,
-    isOperational: boolean = true,
-  ) {
+  constructor(message: string, code?: string) {
     super(message);
-    this.statusCode = statusCode;
-    this.isOperational = isOperational;
+    this.message = message;
+    // this.code = code;
     Error.captureStackTrace(this, this.constructor);
   }
 }
