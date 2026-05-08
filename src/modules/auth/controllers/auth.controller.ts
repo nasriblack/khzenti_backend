@@ -1,17 +1,21 @@
-import { Request, Response, NextFunction } from 'express';
-import { authService } from '../services/auth.service';
-import { sendSuccess, sendError, sendCreated } from '../../../utils/response.util';
-import { registerSchema } from '../dto/register.dto';
-import { loginSchema } from '../dto/login.dto';
-import { prisma } from '../../../config/database';
+import { Request, Response, NextFunction } from "express";
+import { authService } from "../services/auth.service";
+import {
+  sendSuccess,
+  sendError,
+  sendCreated,
+} from "../../../utils/response.util";
+import { registerSchema } from "../dto/register.dto";
+import { loginSchema } from "../dto/login.dto";
+import { prisma } from "../../../config/database";
 
 export class AuthController {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       const validated = registerSchema.parse(req.body);
       const result = await authService.register(validated);
-      
-      return sendCreated(res, result, 'User registered successfully');
+
+      return sendCreated(res, result, "User registered successfully");
     } catch (error) {
       next(error);
     }
@@ -21,8 +25,8 @@ export class AuthController {
     try {
       const validated = loginSchema.parse(req.body);
       const result = await authService.login(validated);
-      
-      return sendSuccess(res, result, 'Login successful');
+
+      return sendSuccess(res, result, "Login successful");
     } catch (error) {
       next(error);
     }
@@ -33,21 +37,22 @@ export class AuthController {
       const { refreshToken } = req.body;
 
       if (!refreshToken) {
-        return sendError(res, 'Refresh token is required', 400);
+        return sendError(res, "Refresh token is required", 400);
       }
 
       const tokens = await authService.refreshToken(refreshToken);
-      
-      return sendSuccess(res, tokens, 'Tokens refreshed successfully');
+
+      return sendSuccess(res, tokens, "Tokens refreshed successfully");
     } catch (error) {
       next(error);
     }
   }
 
   async me(req: Request, res: Response, next: NextFunction) {
+    console.log("checking the req", req.user);
     try {
       if (!req.user) {
-        return sendError(res, 'User not authenticated', 401);
+        return sendError(res, "User not authenticated", 401);
       }
 
       const user = await prisma.user.findUnique({
@@ -56,16 +61,15 @@ export class AuthController {
           id: true,
           email: true,
           name: true,
-          profileImage: true,
           createdAt: true,
         },
       });
 
       if (!user) {
-        return sendError(res, 'User not found', 404);
+        return sendError(res, "User not found", 404);
       }
 
-      return sendSuccess(res, user, 'User retrieved successfully');
+      return sendSuccess(res, user, "User retrieved successfully");
     } catch (error) {
       next(error);
     }
