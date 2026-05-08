@@ -3,8 +3,8 @@
 - [ ] Authentification
     -[X] SingUp
         - [X] with false credentials (not follow the conditions)
-        - [ ] with truthy credentials (follow the conditions) => 
-            - [ ] error : SecretOrPrivate must have a value ( And i found the record on DB) 
+        - [X] with truthy credentials (follow the conditions) => 
+            - [X] error : SecretOrPrivate must have a value ( And i found the record on DB) : 30m
     -[ ] SignIn 
     -[ ] Who IAM (/me)
  
