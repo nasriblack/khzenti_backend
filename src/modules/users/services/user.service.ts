@@ -1,6 +1,6 @@
-import { prisma } from '../../../config/database';
-import { UpdateUserDTO } from '../dto/update-user.dto';
-import { AppErrorClass } from '../../../middleware/error.middleware';
+import { prisma } from "../../../config/database";
+import { UpdateUserDTO } from "../dto/update-user.dto";
+import { AppErrorClass } from "../../../middleware/error.middleware";
 
 export class UserService {
   async getUserById(userId: string) {
@@ -10,15 +10,18 @@ export class UserService {
         id: true,
         email: true,
         name: true,
-        profileImage: true,
-        preferences: true,
+        isPremium: true,
+        isActive: true,
+        age: true,
+        location: true,
+        outfitGenerationsUsed: true,
         createdAt: true,
         updatedAt: true,
       },
     });
 
     if (!user) {
-      throw new AppErrorClass('User not found', 404);
+      throw new AppErrorClass("User not found", "404");
     }
 
     return user;
@@ -49,7 +52,7 @@ export class UserService {
       where: { id: userId },
     });
 
-    return { message: 'User deleted successfully' };
+    return { message: "User deleted successfully" };
   }
 
   async getUserStats(userId: string) {
