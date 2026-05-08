@@ -6,5 +6,5 @@
         - [X] with truthy credentials (follow the conditions) => 
             - [X] error : SecretOrPrivate must have a value ( And i found the record on DB) : 30m
     -[X] SignIn 
-    -[ ] Who IAM (/me)
+    -[X] Who IAM (/me)
  
