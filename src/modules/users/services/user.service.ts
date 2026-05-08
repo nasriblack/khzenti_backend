@@ -32,14 +32,11 @@ export class UserService {
       where: { id: userId },
       data: {
         ...data,
-        preferences: data.preferences as any,
       },
       select: {
         id: true,
         email: true,
         name: true,
-        profileImage: true,
-        preferences: true,
         updatedAt: true,
       },
     });

@@ -11,12 +11,12 @@
 
 # 08/05/2026
 
-- [ ] Get user
-- [ ] Update response of get user
+- [X] Get user
+- [X] Update response of get user
     => kan el user mahoch active , yotkhel lel profil mtaaeo w ychouf span ... 
     u are not active , contact the Admin
     => Age is necessary (bech y7asen el result mtaa IA) => aando dakhel fel prompt
     est la pour informer l'utilisateur , que l'age est pour les suggestions ia de meme pour location
     => l'input outfitGenerationsUsed must be disbaled in the front!!! => just to tell the user that u have an counter
-- [ ] Update user
+- [X] Update user
  
