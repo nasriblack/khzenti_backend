@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
-import { wardrobeService } from '../services/wardrobe.service';
-import { sendSuccess, sendCreated } from '../../../utils/response.util';
-import { createItemSchema } from '../dto/create-item.dto';
-import { updateItemSchema } from '../dto/update-item.dto';
+import { Request, Response, NextFunction } from "express";
+import { wardrobeService } from "../services/wardrobe.service";
+import { sendSuccess, sendCreated } from "../../../utils/response.util";
+import { createItemSchema } from "../dto/create-item.dto";
+import { updateItemSchema } from "../dto/update-item.dto";
 
 export class WardrobeController {
   async createItem(req: Request, res: Response, next: NextFunction) {
@@ -11,9 +11,13 @@ export class WardrobeController {
       const validated = createItemSchema.parse(req.body);
       const imageBuffer = req.file?.buffer;
 
-      const item = await wardrobeService.createItem(userId, validated, imageBuffer);
-      
-      return sendCreated(res, item, 'Wardrobe item created successfully');
+      const item = await wardrobeService.createItem(
+        userId,
+        validated,
+        imageBuffer,
+      );
+
+      return sendCreated(res, item, "Wardrobe item created successfully");
     } catch (error) {
       next(error);
     }
@@ -29,8 +33,8 @@ export class WardrobeController {
         color: color as string,
         season: season as string,
       });
-      
-      return sendSuccess(res, items, 'Wardrobe items retrieved successfully');
+
+      return sendSuccess(res, items, "Wardrobe items retrieved successfully");
     } catch (error) {
       next(error);
     }
@@ -42,8 +46,8 @@ export class WardrobeController {
       const { id } = req.params;
 
       const item = await wardrobeService.getItemById(userId, id);
-      
-      return sendSuccess(res, item, 'Wardrobe item retrieved successfully');
+
+      return sendSuccess(res, item, "Wardrobe item retrieved successfully");
     } catch (error) {
       next(error);
     }
@@ -56,8 +60,8 @@ export class WardrobeController {
       const validated = updateItemSchema.parse(req.body);
 
       const item = await wardrobeService.updateItem(userId, id, validated);
-      
-      return sendSuccess(res, item, 'Wardrobe item updated successfully');
+
+      return sendSuccess(res, item, "Wardrobe item updated successfully");
     } catch (error) {
       next(error);
     }
@@ -69,8 +73,8 @@ export class WardrobeController {
       const { id } = req.params;
 
       const result = await wardrobeService.deleteItem(userId, id);
-      
-      return sendSuccess(res, result, 'Wardrobe item deleted successfully');
+
+      return sendSuccess(res, result, "Wardrobe item deleted successfully");
     } catch (error) {
       next(error);
     }
