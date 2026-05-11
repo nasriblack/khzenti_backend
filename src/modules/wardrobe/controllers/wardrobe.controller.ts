@@ -23,62 +23,62 @@ export class WardrobeController {
     }
   }
 
-  async getItems(req: Request, res: Response, next: NextFunction) {
-    try {
-      const userId = req.user!.userId;
-      const { category, color, season } = req.query;
+  // async getItems(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const userId = req.user!.userId;
+  //     const { category, color, season } = req.query;
 
-      const items = await wardrobeService.getItems(userId, {
-        category: category as string,
-        color: color as string,
-        season: season as string,
-      });
+  //     const items = await wardrobeService.getItems(userId, {
+  //       category: category as string,
+  //       color: color as string,
+  //       season: season as string,
+  //     });
 
-      return sendSuccess(res, items, "Wardrobe items retrieved successfully");
-    } catch (error) {
-      next(error);
-    }
-  }
+  //     return sendSuccess(res, items, "Wardrobe items retrieved successfully");
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
-  async getItem(req: Request, res: Response, next: NextFunction) {
-    try {
-      const userId = req.user!.userId;
-      const { id } = req.params;
+  // async getItem(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const userId = req.user!.userId;
+  //     const { id } = req.params;
 
-      const item = await wardrobeService.getItemById(userId, id);
+  //     const item = await wardrobeService.getItemById(userId, id);
 
-      return sendSuccess(res, item, "Wardrobe item retrieved successfully");
-    } catch (error) {
-      next(error);
-    }
-  }
+  //     return sendSuccess(res, item, "Wardrobe item retrieved successfully");
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
-  async updateItem(req: Request, res: Response, next: NextFunction) {
-    try {
-      const userId = req.user!.userId;
-      const { id } = req.params;
-      const validated = updateItemSchema.parse(req.body);
+  // async updateItem(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const userId = req.user!.userId;
+  //     const { id } = req.params;
+  //     const validated = updateItemSchema.parse(req.body);
 
-      const item = await wardrobeService.updateItem(userId, id, validated);
+  //     const item = await wardrobeService.updateItem(userId, id, validated);
 
-      return sendSuccess(res, item, "Wardrobe item updated successfully");
-    } catch (error) {
-      next(error);
-    }
-  }
+  //     return sendSuccess(res, item, "Wardrobe item updated successfully");
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
-  async deleteItem(req: Request, res: Response, next: NextFunction) {
-    try {
-      const userId = req.user!.userId;
-      const { id } = req.params;
+  // async deleteItem(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const userId = req.user!.userId;
+  //     const { id } = req.params;
 
-      const result = await wardrobeService.deleteItem(userId, id);
+  //     const result = await wardrobeService.deleteItem(userId, id);
 
-      return sendSuccess(res, result, "Wardrobe item deleted successfully");
-    } catch (error) {
-      next(error);
-    }
-  }
+  //     return sendSuccess(res, result, "Wardrobe item deleted successfully");
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }
 
 export const wardrobeController = new WardrobeController();
