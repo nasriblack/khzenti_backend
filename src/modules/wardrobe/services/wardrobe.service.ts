@@ -60,31 +60,31 @@ export class WardrobeService {
     return item;
   }
 
-  // async getItems(
-  //   userId: string,
-  //   filters?: { category?: string; color?: string; season?: string },
-  // ) {
-  //   const where: any = { userId };
+  async getItems(
+    userId: string,
+    filters?: { category?: string; color?: string; season?: string },
+  ) {
+    const where: any = { userId };
 
-  //   if (filters?.category) {
-  //     where.category = filters.category;
-  //   }
+    if (filters?.category) {
+      where.category = filters.category;
+    }
 
-  //   if (filters?.color) {
-  //     where.color = filters.color;
-  //   }
+    if (filters?.color) {
+      where.color = filters.color;
+    }
 
-  //   if (filters?.season) {
-  //     where.season = { has: filters.season };
-  //   }
+    if (filters?.season) {
+      where.season = { has: filters.season };
+    }
 
-  //   const items = await prisma.wardrobeItem.findMany({
-  //     where,
-  //     orderBy: { createdAt: "desc" },
-  //   });
+    const items = await prisma.wardrobeItem.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+    });
 
-  //   return items;
-  // }
+    return items;
+  }
 
   // async getItemById(userId: string, itemId: string) {
   //   const item = await prisma.wardrobeItem.findFirst({

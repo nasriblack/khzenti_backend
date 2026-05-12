@@ -13,7 +13,7 @@ router.post(
   uploadSingle("image"),
   wardrobeController.createItem.bind(wardrobeController),
 );
-// router.get('/', wardrobeController.getItems.bind(wardrobeController));
+router.get("/", wardrobeController.getItems.bind(wardrobeController));
 // router.get('/:id', wardrobeController.getItem.bind(wardrobeController));
 // router.put('/:id', wardrobeController.updateItem.bind(wardrobeController));
 // router.delete('/:id', wardrobeController.deleteItem.bind(wardrobeController));

@@ -23,22 +23,22 @@ export class WardrobeController {
     }
   }
 
-  // async getItems(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const userId = req.user!.userId;
-  //     const { category, color, season } = req.query;
+  async getItems(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.userId;
+      const { category, color, season } = req.query;
 
-  //     const items = await wardrobeService.getItems(userId, {
-  //       category: category as string,
-  //       color: color as string,
-  //       season: season as string,
-  //     });
+      const items = await wardrobeService.getItems(userId, {
+        category: category as string,
+        color: color as string,
+        season: season as string,
+      });
 
-  //     return sendSuccess(res, items, "Wardrobe items retrieved successfully");
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      return sendSuccess(res, items, "Wardrobe items retrieved successfully");
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // async getItem(req: Request, res: Response, next: NextFunction) {
   //   try {

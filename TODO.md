@@ -21,8 +21,9 @@
 - [X] Update user
 
 # 12/05/2026
-- [ ] Check the number wardrobe item before uploading items
-- [ ] Update the number wardrobe added ( limit of the wordrobe items -7 item- and it's not premium)
-- [ ] get Item (wardrobe item)
+- [X] Check the number wardrobe item before uploading items
+- [O] Update the number wardrobe added ( limit of the wordrobe items -7 item- and it's not premium) => Draft
+- [ ] get Items (wardrobe items)
+- [ ] get item by id
 - [ ] update wardrobe item
  
