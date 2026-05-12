@@ -14,7 +14,28 @@ export class WardrobeService {
     let imagePublicId: string;
     let item: any;
 
-    if (imageBuffer) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        isPremium: true,
+        maxWardrobeItems: true,
+        isActive: true,
+        _count: {
+          select: {
+            wardrobeItems: true,
+          },
+        },
+      },
+    });
+
+    if (
+      (user?.isPremium && imageBuffer) ||
+      (!user?.isPremium &&
+        imageBuffer &&
+        user?.isActive &&
+        user?.maxWardrobeItems &&
+        user?._count.wardrobeItems <= user?.maxWardrobeItems)
+    ) {
       const processedImage = await processImage(imageBuffer);
       const uploaded = await uploadToCloudinary(
         processedImage,
@@ -31,6 +52,9 @@ export class WardrobeService {
           season: data.season || undefined,
         },
       });
+    } else {
+      //TODO: upgrade the error
+      throw new AppErrorClass("U have reach your max");
     }
 
     return item;

@@ -19,4 +19,9 @@
     est la pour informer l'utilisateur , que l'age est pour les suggestions ia de meme pour location
     => l'input outfitGenerationsUsed must be disbaled in the front!!! => just to tell the user that u have an counter
 - [X] Update user
+
+# 12/05/2026
+- [ ] Update the number wardrobe added ( limit of the wordrobe items -7 item- and it's not premium)
+- [ ] get Item (wardrobe item)
+- [ ] update wardrobe item
  
