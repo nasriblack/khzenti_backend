@@ -40,18 +40,18 @@ export class WardrobeController {
     }
   }
 
-  // async getItem(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const userId = req.user!.userId;
-  //     const { id } = req.params;
+  async getItem(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.userId;
+      const { id } = req.params;
 
-  //     const item = await wardrobeService.getItemById(userId, id);
+      const item = await wardrobeService.getItemById(userId, id.toString());
 
-  //     return sendSuccess(res, item, "Wardrobe item retrieved successfully");
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      return sendSuccess(res, item, "Wardrobe item retrieved successfully");
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // async updateItem(req: Request, res: Response, next: NextFunction) {
   //   try {

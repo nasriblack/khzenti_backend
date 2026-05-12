@@ -86,17 +86,17 @@ export class WardrobeService {
     return items;
   }
 
-  // async getItemById(userId: string, itemId: string) {
-  //   const item = await prisma.wardrobeItem.findFirst({
-  //     where: { id: itemId, userId },
-  //   });
+  async getItemById(userId: string, itemId: string) {
+    const item = await prisma.wardrobeItem.findFirst({
+      where: { id: itemId, userId },
+    });
 
-  //   if (!item) {
-  //     throw new AppErrorClass("Wardrobe item not found", "404");
-  //   }
+    if (!item) {
+      throw new AppErrorClass("Wardrobe item not found", "404");
+    }
 
-  //   return item;
-  // }
+    return item;
+  }
 
   // async updateItem(userId: string, itemId: string, data: UpdateItemDTO) {
   //   const item = await this.getItemById(userId, itemId);

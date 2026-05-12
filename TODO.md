@@ -23,7 +23,7 @@
 # 12/05/2026
 - [X] Check the number wardrobe item before uploading items
 - [O] Update the number wardrobe added ( limit of the wordrobe items -7 item- and it's not premium) => Draft
-- [ ] get Items (wardrobe items)
+- [X] get Items (wardrobe items)
 - [ ] get item by id
 - [ ] update wardrobe item
  
