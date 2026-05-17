@@ -32,6 +32,6 @@
 - [X] create outfit 
 - [X] get outfits 
 - [X] get outfit by id 
-- [ ] update outfit 
-- [X] add isFavorite filter 
-- [ ] Fix the error that come with no explaination ( just required with no field)
+- [X] update outfit 
+- [X] Fix the error that come with no explaination ( just required with no field)
+- [ ] add isFavorite filter 
