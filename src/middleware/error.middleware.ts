@@ -69,7 +69,7 @@ export const errorHandler = (
   if (err instanceof ZodError) {
     return res.status(400).json({
       success: false,
-      error: err.errors.map((e) => e.message),
+      error: err.errors.map((e) => `${e.path} is ${e.message}`),
     });
   }
 
