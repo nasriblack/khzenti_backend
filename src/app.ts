@@ -51,7 +51,7 @@ app.use(`/api/${API_VERSION}/auth`, authRoutes);
 app.use(`/api/${API_VERSION}/users`, userRoutes);
 app.use(`/api/${API_VERSION}/wardrobe`, wardrobeRoutes);
 app.use(`/api/${API_VERSION}/outfits`, outfitRoutes);
-// app.use(`/api/${API_VERSION}/ai`, aiRoutes);
+app.use(`/api/${API_VERSION}/ai`, aiRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

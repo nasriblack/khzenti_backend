@@ -1,7 +1,7 @@
-import { prisma } from '../../../config/database';
-import { generateAIResponse } from '../../../config/openrouter';
-import { RecommendationDTO } from '../dto/recommendation.dto';
-import { AppErrorClass } from '../../../middleware/error.middleware';
+import { prisma } from "../../../config/database";
+import { generateAIResponse } from "../../../config/openrouter";
+import { RecommendationDTO } from "../dto/recommendation.dto";
+import { AppErrorClass } from "../../../middleware/error.middleware";
 
 export class AIService {
   async generateRecommendations(userId: string, params: RecommendationDTO) {
@@ -11,7 +11,10 @@ export class AIService {
     });
 
     if (wardrobeItems.length === 0) {
-      throw new AppErrorClass('No wardrobe items found. Please add items to your wardrobe first.', 400);
+      throw new AppErrorClass(
+        "No wardrobe items found. Please add items to your wardrobe first.",
+        "400",
+      );
     }
 
     // Build context for AI
@@ -33,11 +36,11 @@ export class AIService {
 ${JSON.stringify(wardrobeContext, null, 2)}
 
 Create 3 outfit recommendations for:
-- Occasion: ${params.occasion || 'casual'}
-- Weather: ${params.weather || 'moderate'}
-- Season: ${params.season || 'current'}
-${params.preferences?.colors ? `- Preferred colors: ${params.preferences.colors.join(', ')}` : ''}
-${params.preferences?.styles ? `- Preferred styles: ${params.preferences.styles.join(', ')}` : ''}
+- Occasion: ${params.occasion || "casual"}
+- Weather: ${params.weather || "moderate"}
+- Season: ${params.season || "current"}
+${params.preferences?.colors ? `- Preferred colors: ${params.preferences.colors.join(", ")}` : ""}
+${params.preferences?.styles ? `- Preferred styles: ${params.preferences.styles.join(", ")}` : ""}
 
 For each outfit, provide:
 1. A creative name
@@ -73,63 +76,66 @@ Return the response as a JSON array with this structure:
         },
       };
     } catch (error) {
-      console.error('AI recommendation error:', error);
-      throw new AppErrorClass('Failed to generate recommendations. Please try again.', 500);
+      console.error("AI recommendation error:", error);
+      throw new AppErrorClass(
+        "Failed to generate recommendations. Please try again.",
+        "500",
+      );
     }
   }
 
-  async analyzeOutfit(userId: string, itemIds: string[]) {
-    // Verify items belong to user
-    const items = await prisma.wardrobeItem.findMany({
-      where: {
-        id: { in: itemIds },
-        userId,
-      },
-    });
+  //   async analyzeOutfit(userId: string, itemIds: string[]) {
+  //     // Verify items belong to user
+  //     const items = await prisma.wardrobeItem.findMany({
+  //       where: {
+  //         id: { in: itemIds },
+  //         userId,
+  //       },
+  //     });
 
-    if (items.length !== itemIds.length) {
-      throw new AppErrorClass('One or more items not found', 404);
-    }
+  //     if (items.length !== itemIds.length) {
+  //       throw new AppErrorClass("One or more items not found", 404);
+  //     }
 
-    const itemsContext = items.map((item) => ({
-      name: item.name,
-      category: item.category,
-      color: item.color,
-    }));
+  //     const itemsContext = items.map((item) => ({
+  //       name: item.name,
+  //       category: item.category,
+  //       color: item.color,
+  //     }));
 
-    const systemPrompt = `You are a fashion AI assistant specialized in analyzing outfit combinations for Tunisian women.`;
+  //     const systemPrompt = `You are a fashion AI assistant specialized in analyzing outfit combinations for Tunisian women.`;
 
-    const userPrompt = `Analyze this outfit combination:
-${JSON.stringify(itemsContext, null, 2)}
+  //     const userPrompt = `Analyze this outfit combination:
+  // ${JSON.stringify(itemsContext, null, 2)}
 
-Provide:
-1. Overall score (1-10)
-2. Color harmony analysis
-3. Style coherence
-4. Cultural appropriateness for Tunisia
-5. Suggestions for improvement
+  // Provide:
+  // 1. Overall score (1-10)
+  // 2. Color harmony analysis
+  // 3. Style coherence
+  // 4. Cultural appropriateness for Tunisia
+  // 5. Suggestions for improvement
 
-Return as JSON:
-{
-  "score": 8,
-  "colorHarmony": "analysis",
-  "styleCoherence": "analysis",
-  "culturalFit": "analysis",
-  "suggestions": ["suggestion1", "suggestion2"]
-}`;
+  // Return as JSON:
+  // {
+  //   "score": 8,
+  //   "colorHarmony": "analysis",
+  //   "styleCoherence": "analysis",
+  //   "culturalFit": "analysis",
+  //   "suggestions": ["suggestion1", "suggestion2"]
+  // }`;
 
-    try {
-      const aiResponse = await generateAIResponse({
-        systemPrompt,
-        userPrompt,
-        temperature: 0.7,
-      });
+  //     try {
+  //       const aiResponse = await generateAIResponse({
+  //         systemPrompt,
+  //         userPrompt,
+  //         temperature: 0.7,
+  //       });
 
-      return JSON.parse(aiResponse);
-    } catch (error) {
-      throw new AppErrorClass('Failed to analyze outfit', 500);
-    }
-  }
+  //       return JSON.parse(aiResponse);
+  //     } catch (error) {
+  //       throw new AppErrorClass("Failed to analyze outfit", 500);
+  //     }
+  //   }
 }
 
 export const aiService = new AIService();
