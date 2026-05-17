@@ -1,19 +1,5 @@
 import { z } from "zod";
-
-export enum Season {
-  SUMMER = "SUMMER",
-  WINTER = "WINTER",
-  SPRING = "SPRING",
-  FALL = "FALL",
-}
-
-export enum Category {
-  TOPS = "TOPS",
-  BOTTOMS = "BOTTOMS",
-  SHOES = "SHOES",
-  JACKETS = "JACKETS",
-  ACCESSORIES = "ACCESSORIES",
-}
+import { Category, Season } from "./create-item.dto";
 
 export const updateItemSchema = z.object({
   category: z.nativeEnum(Category),
