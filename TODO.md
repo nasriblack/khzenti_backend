@@ -27,3 +27,10 @@
 - [X] get item by id
 - [X] update wardrobe item
  
+# 17/05/2026
+
+- [ ] create outfit 
+    - el User bech yaati el name mtaa el outfit ? optional
+- [ ] get outfits 
+- [ ] get outfit by id 
+- [ ] update outfit 

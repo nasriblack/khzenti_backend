@@ -127,7 +127,7 @@ model Outfit {
 
   // Outfit metadata
   name     String? // Optional user-given name
-  style    Style // casual, elegant, sport, etc.
+  // style    Style // casual, elegant, sport, etc.
   occasion Occasion @default(CASUAL)
 
   // AI-generated explanation
