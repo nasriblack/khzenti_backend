@@ -18,22 +18,23 @@ export class OutfitController {
     }
   }
 
-  // async getOutfits(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const userId = req.user!.userId;
-  //     const { occasion, season, isFavorite } = req.query;
+  async getOutfits(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.userId;
+      const { occasion, season, isFavorite } = req.query;
 
-  //     const outfits = await outfitService.getOutfits(userId, {
-  //       occasion: occasion as string,
-  //       season: season as string,
-  //       isFavorite: isFavorite === 'true',
-  //     });
+      const outfits = await outfitService.getOutfits(userId, {
+        occasion: occasion as string,
+        season: season as string,
+        //TODO: add the logique of isFavorite !!
+        // isFavorite: isFavorite === "true",
+      });
 
-  //     return sendSuccess(res, outfits, 'Outfits retrieved successfully');
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      return sendSuccess(res, outfits, "Outfits retrieved successfully");
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // async getOutfit(req: Request, res: Response, next: NextFunction) {
   //   try {

@@ -29,7 +29,7 @@
  
 # 17/05/2026
 
-- [ ] create outfit 
+- [X] create outfit 
 - [ ] get outfits 
 - [ ] get outfit by id 
 - [ ] update outfit 

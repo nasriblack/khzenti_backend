@@ -45,34 +45,34 @@ export class OutfitService {
     return outfit;
   }
 
-  // async getOutfits(
-  //   userId: string,
-  //   filters?: { occasion?: string; season?: string; isFavorite?: boolean },
-  // ) {
-  //   const where: any = { userId };
+  async getOutfits(
+    userId: string,
+    filters?: { occasion?: string; season?: string; isFavorite?: boolean },
+  ) {
+    const where: any = { userId };
 
-  //   if (filters?.occasion) {
-  //     where.occasion = filters.occasion;
-  //   }
+    if (filters?.occasion) {
+      where.occasion = filters.occasion;
+    }
 
-  //   if (filters?.season) {
-  //     where.season = filters.season;
-  //   }
+    if (filters?.season) {
+      where.season = filters.season;
+    }
 
-  //   if (filters?.isFavorite !== undefined) {
-  //     where.isFavorite = filters.isFavorite;
-  //   }
+    if (filters?.isFavorite !== undefined) {
+      where.isFavorite = filters.isFavorite;
+    }
 
-  //   const outfits = await prisma.outfit.findMany({
-  //     where,
-  //     include: {
-  //       items: true,
-  //     },
-  //     orderBy: { createdAt: "desc" },
-  //   });
+    const outfits = await prisma.outfit.findMany({
+      where,
+      include: {
+        items: true,
+      },
+      orderBy: { createdAt: "desc" },
+    });
 
-  //   return outfits;
-  // }
+    return outfits;
+  }
 
   // async getOutfitById(userId: string, outfitId: string) {
   //   const outfit = await prisma.outfit.findFirst({
