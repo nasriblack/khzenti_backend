@@ -30,7 +30,7 @@
 # 17/05/2026
 
 - [ ] create outfit 
-    - el User bech yaati el name mtaa el outfit ? optional
+    - i want delete the style from the outfit model
 - [ ] get outfits 
 - [ ] get outfit by id 
 - [ ] update outfit 
