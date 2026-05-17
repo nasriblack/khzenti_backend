@@ -53,19 +53,23 @@ export class WardrobeController {
     }
   }
 
-  // async updateItem(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const userId = req.user!.userId;
-  //     const { id } = req.params;
-  //     const validated = updateItemSchema.parse(req.body);
+  async updateItem(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.userId;
+      const { id } = req.params;
+      const validated = updateItemSchema.parse(req.body);
 
-  //     const item = await wardrobeService.updateItem(userId, id, validated);
+      const item = await wardrobeService.updateItem(
+        userId,
+        id.toString(),
+        validated,
+      );
 
-  //     return sendSuccess(res, item, "Wardrobe item updated successfully");
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      return sendSuccess(res, item, "Wardrobe item updated successfully");
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // async deleteItem(req: Request, res: Response, next: NextFunction) {
   //   try {

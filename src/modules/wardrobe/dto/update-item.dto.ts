@@ -1,15 +1,26 @@
-import { z } from 'zod';
+import { z } from "zod";
+
+export enum Season {
+  SUMMER = "SUMMER",
+  WINTER = "WINTER",
+  SPRING = "SPRING",
+  FALL = "FALL",
+}
+
+export enum Category {
+  TOPS = "TOPS",
+  BOTTOMS = "BOTTOMS",
+  SHOES = "SHOES",
+  JACKETS = "JACKETS",
+  ACCESSORIES = "ACCESSORIES",
+}
 
 export const updateItemSchema = z.object({
-  name: z.string().min(1).optional(),
-  category: z.string().optional(),
-  subcategory: z.string().optional(),
-  color: z.string().optional(),
+  category: z.nativeEnum(Category),
+  colors: z.array(z.string()),
+  season: z.nativeEnum(Season).optional(),
   brand: z.string().optional(),
-  size: z.string().optional(),
-  season: z.array(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
   notes: z.string().optional(),
+  styleTags: z.array(z.string()).optional(),
 });
-
 export type UpdateItemDTO = z.infer<typeof updateItemSchema>;

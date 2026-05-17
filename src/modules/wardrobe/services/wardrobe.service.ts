@@ -98,20 +98,20 @@ export class WardrobeService {
     return item;
   }
 
-  // async updateItem(userId: string, itemId: string, data: UpdateItemDTO) {
-  //   const item = await this.getItemById(userId, itemId);
+  async updateItem(userId: string, itemId: string, data: UpdateItemDTO) {
+    console.log("checking the item", itemId);
+    const item = await this.getItemById(userId, itemId);
 
-  //   const updated = await prisma.wardrobeItem.update({
-  //     where: { id: itemId },
-  //     data: {
-  //       ...data,
-  //       season: data.season || item.season,
-  //       tags: data.tags || item.tags,
-  //     },
-  //   });
+    const updated = await prisma.wardrobeItem.update({
+      where: { id: itemId },
+      data: {
+        ...data,
+        styleTags: data.styleTags || item.styleTags,
+      },
+    });
 
-  //   return updated;
-  // }
+    return updated;
+  }
 
   // async deleteItem(userId: string, itemId: string) {
   //   const item = await this.getItemById(userId, itemId);

@@ -24,6 +24,6 @@
 - [X] Check the number wardrobe item before uploading items
 - [O] Update the number wardrobe added ( limit of the wordrobe items -7 item- and it's not premium) => Draft
 - [X] get Items (wardrobe items)
-- [ ] get item by id
-- [ ] update wardrobe item
+- [X] get item by id
+- [X] update wardrobe item
  
