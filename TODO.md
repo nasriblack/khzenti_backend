@@ -30,11 +30,7 @@
 # 17/05/2026
 
 - [ ] create outfit 
-    - i want delete the style from the outfit model
-    1- i run this command ``` pnpm dlx prisma db:pull ```  => sync with the migration and model prisma
-    2- i delete the property from the prisma model 
-    3- i made the migration  ```pnpm prisma migrate dev --name remove-age-column```
-    4- i made the generated file  ```pnpm prisma:generate```
 - [ ] get outfits 
 - [ ] get outfit by id 
 - [ ] update outfit 
+- [ ] Fix the error that come with no explaination ( just required with no field)

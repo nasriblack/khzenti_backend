@@ -14,7 +14,6 @@ export enum Occasion {
 export const createOutfitSchema = z.object({
   name: z.string().min(1),
   occasion: z.nativeEnum(Occasion).optional(),
-  style: z.nativeEnum(Style),
   itemIds: z.array(z.string()).min(1, "At least one item is required"),
   // notes: z.string().optional(),
 });

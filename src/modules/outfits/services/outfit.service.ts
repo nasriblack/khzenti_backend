@@ -13,6 +13,8 @@ export class OutfitService {
       },
     });
 
+    console.log("checking the items", items);
+
     if (items.length !== data.itemIds.length) {
       throw new AppErrorClass("One or more items not found", "404");
     }
@@ -21,15 +23,22 @@ export class OutfitService {
       data: {
         name: data.name,
         occasion: data.occasion,
-        style: data.style,
-        // notes: data.notes,
         userId,
         items: {
-          connect: data.itemIds.map((id) => ({ id })),
+          create: data.itemIds.map((itemId, index) => ({
+            position: index,
+            item: {
+              connect: { id: itemId },
+            },
+          })),
         },
       },
       include: {
-        items: true,
+        items: {
+          include: {
+            item: true,
+          },
+        },
       },
     });
 
