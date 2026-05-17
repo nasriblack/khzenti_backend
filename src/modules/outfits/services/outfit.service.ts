@@ -74,20 +74,20 @@ export class OutfitService {
     return outfits;
   }
 
-  // async getOutfitById(userId: string, outfitId: string) {
-  //   const outfit = await prisma.outfit.findFirst({
-  //     where: { id: outfitId, userId },
-  //     include: {
-  //       items: true,
-  //     },
-  //   });
+  async getOutfitById(userId: string, outfitId: string) {
+    const outfit = await prisma.outfit.findFirst({
+      where: { id: outfitId, userId },
+      include: {
+        items: true,
+      },
+    });
 
-  //   if (!outfit) {
-  //     throw new AppErrorClass("Outfit not found", 404);
-  //   }
+    if (!outfit) {
+      throw new AppErrorClass("Outfit not found", "404");
+    }
 
-  //   return outfit;
-  // }
+    return outfit;
+  }
 
   // async updateOutfit(userId: string, outfitId: string, data: UpdateOutfitDTO) {
   //   await this.getOutfitById(userId, outfitId);

@@ -36,18 +36,18 @@ export class OutfitController {
     }
   }
 
-  // async getOutfit(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const userId = req.user!.userId;
-  //     const { id } = req.params;
+  async getOutfit(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.userId;
+      const { id } = req.params;
 
-  //     const outfit = await outfitService.getOutfitById(userId, id);
+      const outfit = await outfitService.getOutfitById(userId, id.toString());
 
-  //     return sendSuccess(res, outfit, 'Outfit retrieved successfully');
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      return sendSuccess(res, outfit, "Outfit retrieved successfully");
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // async updateOutfit(req: Request, res: Response, next: NextFunction) {
   //   try {
