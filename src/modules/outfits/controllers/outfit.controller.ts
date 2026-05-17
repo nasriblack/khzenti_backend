@@ -49,19 +49,23 @@ export class OutfitController {
     }
   }
 
-  // async updateOutfit(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const userId = req.user!.userId;
-  //     const { id } = req.params;
-  //     const validated = updateOutfitSchema.parse(req.body);
+  async updateOutfit(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.userId;
+      const { id } = req.params;
+      const validated = updateOutfitSchema.parse(req.body);
 
-  //     const outfit = await outfitService.updateOutfit(userId, id, validated);
+      const outfit = await outfitService.updateOutfit(
+        userId,
+        id.toString(),
+        validated,
+      );
 
-  //     return sendSuccess(res, outfit, 'Outfit updated successfully');
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      return sendSuccess(res, outfit, "Outfit updated successfully");
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // async deleteOutfit(req: Request, res: Response, next: NextFunction) {
   //   try {

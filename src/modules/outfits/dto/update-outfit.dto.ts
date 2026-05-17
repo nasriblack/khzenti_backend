@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const updateOutfitSchema = z.object({
   name: z.string().min(1).optional(),
@@ -7,6 +7,7 @@ export const updateOutfitSchema = z.object({
   itemIds: z.array(z.string()).optional(),
   notes: z.string().optional(),
   isFavorite: z.boolean().optional(),
+  weatherCondition: z.string().optional(),
 });
 
 export type UpdateOutfitDTO = z.infer<typeof updateOutfitSchema>;

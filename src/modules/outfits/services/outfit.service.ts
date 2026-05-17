@@ -89,33 +89,34 @@ export class OutfitService {
     return outfit;
   }
 
-  // async updateOutfit(userId: string, outfitId: string, data: UpdateOutfitDTO) {
-  //   await this.getOutfitById(userId, outfitId);
+  async updateOutfit(userId: string, outfitId: string, data: UpdateOutfitDTO) {
+    await this.getOutfitById(userId, outfitId);
 
-  //   const updateData: any = {
-  //     name: data.name,
-  //     occasion: data.occasion,
-  //     season: data.season,
-  //     notes: data.notes,
-  //     isFavorite: data.isFavorite,
-  //   };
+    const updateData: any = {
+      name: data.name,
+      occasion: data.occasion,
+      season: data.season,
+      notes: data.notes,
+      // isFavorite: data.isFavorite,
+      weatherCondition: data.weatherCondition,
+    };
 
-  //   if (data.itemIds) {
-  //     updateData.items = {
-  //       set: data.itemIds.map((id) => ({ id })),
-  //     };
-  //   }
+    if (data.itemIds) {
+      updateData.items = {
+        set: data.itemIds.map((id) => ({ id })),
+      };
+    }
 
-  //   const outfit = await prisma.outfit.update({
-  //     where: { id: outfitId },
-  //     data: updateData,
-  //     include: {
-  //       items: true,
-  //     },
-  //   });
+    const outfit = await prisma.outfit.update({
+      where: { id: outfitId },
+      data: updateData,
+      include: {
+        items: true,
+      },
+    });
 
-  //   return outfit;
-  // }
+    return outfit;
+  }
 
   // async deleteOutfit(userId: string, outfitId: string) {
   //   await this.getOutfitById(userId, outfitId);
