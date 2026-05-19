@@ -74,6 +74,7 @@ model Outfit {
   name              String?
   occasion          Occasion            @default(CASUAL)
   aiExplanation     String?
+  notes             String?
   isDailySuggestion Boolean             @default(false)
   isSaved           Boolean             @default(false)
   wornDate          DateTime?
