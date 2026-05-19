@@ -7,6 +7,10 @@ const router = Router();
 // All routes require authentication
 router.use(authenticate);
 
+// router.post(
+//   "/recommendations",
+//   aiController.getRecommendations.bind(aiController),
+// );
 router.post(
   "/recommendations",
   aiController.getRecommendations.bind(aiController),

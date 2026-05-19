@@ -20,25 +20,24 @@ export class AIService {
     // Build context for AI
     const wardrobeContext = wardrobeItems.map((item) => ({
       id: item.id,
-      name: item.name,
+      notes: item.notes,
+      colors: item.colors,
       category: item.category,
-      color: item.color,
       season: item.season,
-      tags: item.tags,
+      styleTags: item.styleTags,
     }));
 
     // Create prompt
-    const systemPrompt = `You are a fashion AI assistant specialized in Tunisian and Middle Eastern fashion. 
-    You help women create stylish, culturally appropriate outfits from their wardrobe.
+    const systemPrompt = `You are a fashion AI assistant. 
+    You help create stylish, culturally appropriate outfits from their wardrobe.
     Consider modesty, local fashion trends, and seasonal weather in Tunisia.`;
 
     const userPrompt = `Based on the following wardrobe items:
 ${JSON.stringify(wardrobeContext, null, 2)}
 
-Create 3 outfit recommendations for:
+Create 1 outfit recommendations for:
 - Occasion: ${params.occasion || "casual"}
 - Weather: ${params.weather || "moderate"}
-- Season: ${params.season || "current"}
 ${params.preferences?.colors ? `- Preferred colors: ${params.preferences.colors.join(", ")}` : ""}
 ${params.preferences?.styles ? `- Preferred styles: ${params.preferences.styles.join(", ")}` : ""}
 
@@ -46,7 +45,6 @@ For each outfit, provide:
 1. A creative name
 2. Which wardrobe item IDs to combine
 3. Why this combination works
-4. Styling tips specific to Tunisian culture
 
 Return the response as a JSON array with this structure:
 [{
@@ -57,12 +55,19 @@ Return the response as a JSON array with this structure:
 }]`;
 
     try {
-      const aiResponse = await generateAIResponse({
-        systemPrompt,
-        userPrompt,
-        temperature: 0.8,
-        maxTokens: 2000,
-      });
+      const aiResponse = await generateAIResponse(
+        [
+          {
+            role: "system",
+            content: systemPrompt,
+          },
+          {
+            role: "user",
+            content: userPrompt,
+          },
+        ],
+        "openai/gpt-3.5-turbo",
+      );
 
       // Parse AI response
       const recommendations = JSON.parse(aiResponse);
@@ -72,7 +77,6 @@ Return the response as a JSON array with this structure:
         context: {
           occasion: params.occasion,
           weather: params.weather,
-          season: params.season,
         },
       };
     } catch (error) {

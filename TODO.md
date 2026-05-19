@@ -36,6 +36,10 @@
 - [X] Fix the error that come with no explaination ( just required with no field)
 
 # 19/05/2026
-- [ ] Add Notes on prisma schema
+- [X] Add Notes on prisma schema
+- [X] Test the middelware of the AI (Authentification)
+- [X] Test the ZOD validator 
 - [ ] Generate recommendation with AI 
 - [ ] add isFavorite filter 
+- [ ] Test if the AI give the right weather prediction
+    - if the AI is not good on this i need to implement this API https://www.weatherapi.com/pricing.aspx
