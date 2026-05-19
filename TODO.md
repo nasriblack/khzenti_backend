@@ -39,7 +39,14 @@
 - [X] Add Notes on prisma schema
 - [X] Test the middelware of the AI (Authentification)
 - [X] Test the ZOD validator 
-- [ ] Generate recommendation with AI 
 - [ ] add isFavorite filter 
 - [ ] Test if the AI give the right weather prediction
     - if the AI is not good on this i need to implement this API https://www.weatherapi.com/pricing.aspx
+
+# NEXT TODO
+
+- [ ] Implement the AI API to check the weather condition 
+```https://github.com/weatherapicom/weatherapi-examples/blob/main/javascript/current.js```
+- [ ] Get the weather API response and used in the recommendation outfit
+- [ ] Add Real Image in DB to test with them
+- [ ] Generate recommendation with AI 
