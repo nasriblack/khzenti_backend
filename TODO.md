@@ -34,4 +34,8 @@
 - [X] get outfit by id 
 - [X] update outfit 
 - [X] Fix the error that come with no explaination ( just required with no field)
+
+# 19/05/2026
+- [ ] Add Notes on prisma schema
+- [ ] Generate recommendation with AI 
 - [ ] add isFavorite filter 
