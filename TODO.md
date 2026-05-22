@@ -45,7 +45,7 @@
 
 # NEXT TODO
 
-- [ ] Implement the AI API to check the weather condition 
+- [X] Implement the AI API to check the weather condition 
 ```https://github.com/weatherapicom/weatherapi-examples/blob/main/javascript/current.js```
         => - data.current.temp_c
         => - data.current.wind_kph
@@ -55,7 +55,8 @@
 
 
 
-- [ ] Get the Location of the connected user to send it in the prediction API
+- [X] Get the Location of the connected user to send it in the prediction API 
+    - [ ] Not tested !
 - [ ] Get the weather API response and used in the recommendation outfit
 - [ ] Add Real Image in DB to test with them
 - [ ] Generate recommendation with AI 

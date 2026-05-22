@@ -25,7 +25,7 @@ export class AIController {
   }
 
   async getTodayWeather(req: Request, res: Response, next: NextFunction) {
-    const todayWeather = await aiService.getTodayWeather();
+    const todayWeather = await aiService.getTodayWeather(req.user!.userId);
 
     return sendSuccess(res, todayWeather, "Request generated successfully");
   }
