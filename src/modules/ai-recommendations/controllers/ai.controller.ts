@@ -24,6 +24,12 @@ export class AIController {
     }
   }
 
+  async getTodayWeather(req: Request, res: Response, next: NextFunction) {
+    const todayWeather = await aiService.getTodayWeather();
+
+    return sendSuccess(res, todayWeather, "Request generated successfully");
+  }
+
   // async analyzeOutfit(req: Request, res: Response, next: NextFunction) {
   //   try {
   //     const userId = req.user!.userId;

@@ -2,8 +2,16 @@ import { prisma } from "../../../config/database";
 import { generateAIResponse } from "../../../config/openrouter";
 import { RecommendationDTO } from "../dto/recommendation.dto";
 import { AppErrorClass } from "../../../middleware/error.middleware";
+import GetCurrentWeather from "./weather.service";
 
 export class AIService {
+  async getTodayWeather() {
+    const weather_api = await GetCurrentWeather("Nabeul");
+
+    return weather_api;
+
+    // TODO: CALL THE API WEATHER
+  }
   async generateRecommendations(userId: string, params: RecommendationDTO) {
     // Get user's wardrobe items
     const wardrobeItems = await prisma.wardrobeItem.findMany({

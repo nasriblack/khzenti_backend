@@ -15,6 +15,7 @@ router.post(
   "/recommendations",
   aiController.getRecommendations.bind(aiController),
 );
+router.post("/todayWeather", aiController.getTodayWeather.bind(aiController));
 // router.post('/analyze', aiController.analyzeOutfit.bind(aiController));
 
 export default router;
