@@ -5,12 +5,16 @@ import { AppErrorClass } from "../../../middleware/error.middleware";
 import GetCurrentWeather from "./weather.service";
 
 export class AIService {
-  async getTodayWeather() {
-    const weather_api = await GetCurrentWeather("Nabeul");
+  async getTodayWeather(userId: string) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        location: true,
+      },
+    });
+    const weather_api = await GetCurrentWeather(user?.location ?? "Tunis");
 
     return weather_api;
-
-    // TODO: CALL THE API WEATHER
   }
   async generateRecommendations(userId: string, params: RecommendationDTO) {
     // Get user's wardrobe items

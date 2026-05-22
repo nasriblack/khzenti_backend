@@ -53,6 +53,9 @@
         => - data.current.chance_of_rain
         => - data.current.will_it_rain
 
+
+
+- [ ] Get the Location of the connected user to send it in the prediction API
 - [ ] Get the weather API response and used in the recommendation outfit
 - [ ] Add Real Image in DB to test with them
 - [ ] Generate recommendation with AI 
