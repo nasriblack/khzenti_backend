@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const updateUserSchema = z.object({
   name: z.string().min(2).optional(),
+  location: z.string().min(2).optional(),
   // profileImage: z.string().url().optional(),
   // preferences: z.object({
   //   favoriteColors: z.array(z.string()).optional(),
