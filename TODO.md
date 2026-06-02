@@ -43,8 +43,8 @@
 - [ ] Test if the AI give the right weather prediction => THE AI is not able to predict the weather
     - if the AI is not good on this i need to implement this API https://www.weatherapi.com/pricing.aspx
 
-# NEXT TODO
 
+# 22/05/2026
 - [X] Implement the AI API to check the weather condition 
 ```https://github.com/weatherapicom/weatherapi-examples/blob/main/javascript/current.js```
         => - data.current.temp_c
@@ -57,6 +57,11 @@
 
 - [X] Get the Location of the connected user to send it in the prediction API 
     - [ ] Not tested !
+
+
+# 02/06/2026
+- [ ] it's not that logical when the user map all the wardrobeItems and send it to the prompt ( check ai.service)
+    => Solution ( idea of me  ) naaemlo filter lel items bel weather eli mawjoud => maanaha kan it's cloudy w fama wind donc bech naaemlo filter aal hwayj chte   
 - [ ] Get the weather API response and used in the recommendation outfit
 - [ ] Add Real Image in DB to test with them
 - [ ] Generate recommendation with AI 
