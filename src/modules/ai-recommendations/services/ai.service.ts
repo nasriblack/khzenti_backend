@@ -2,7 +2,9 @@ import { prisma } from "../../../config/database";
 import { generateAIResponse } from "../../../config/openrouter";
 import { RecommendationDTO } from "../dto/recommendation.dto";
 import { AppErrorClass } from "../../../middleware/error.middleware";
-import GetCurrentWeather from "./weather.service";
+import GetCurrentWeather, { WeatherData } from "./weather.service";
+import { buildWeatherContext } from "./weatherHelper";
+import { Season } from "../../wardrobe/dto/create-item.dto";
 
 export class AIService {
   async getTodayWeather(userId: string) {
@@ -17,12 +19,35 @@ export class AIService {
     return weather_api;
   }
   async generateRecommendations(userId: string, params: RecommendationDTO) {
-    const weatherApi = await this.getTodayWeather(userId);
-
-    // Get user's wardrobe items
-    const wardrobeItems = await prisma.wardrobeItem.findMany({
-      where: { userId },
+    // 1. Weather (single DB + API call)
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { location: true },
     });
+
+    const rawWeather = (await GetCurrentWeather(
+      user?.location ?? "Tunis",
+    )) as WeatherData;
+    const weather = buildWeatherContext(rawWeather);
+
+    const wardrobeItems = await prisma.wardrobeItem.findMany({
+      where: {
+        userId,
+        season: { in: [weather.season, Season.ALL] },
+      },
+      select: {
+        id: true,
+        colors: true,
+        category: true,
+        styleTags: true,
+        notes: true,
+
+        // season is intentionally excluded — it's already filtered, no need to send it to the AI
+      },
+    });
+
+    console.log("checking the wardrobeItems", wardrobeItems);
+    console.log("checking the rawWeather", rawWeather);
 
     if (wardrobeItems.length === 0) {
       throw new AppErrorClass(
@@ -31,42 +56,25 @@ export class AIService {
       );
     }
 
+    // 3. Build prompts
+    const colorPref = params.preferences?.colors?.join(", ");
+    const stylePref = params.preferences?.styles?.join(", ");
+
+    const systemPrompt =
+      "You are a fashion stylist for Tunisian women. " +
+      "Create modest, stylish outfits that respect local culture and current weather. " +
+      "Reply ONLY with a valid JSON array — no markdown, no extra text.";
+
+    const userPrompt =
+      `Weather: ${weather.summary}\n` +
+      `Occasion: ${params.occasion ?? "casual"}\n` +
+      (colorPref ? `Preferred colors: ${colorPref}\n` : "") +
+      (stylePref ? `Preferred styles: ${stylePref}\n` : "") +
+      `\nWardrobe:\n${JSON.stringify(wardrobeItems)}\n` +
+      `\nReturn 1 outfit as a JSON array:\n` +
+      `[{"name":"...","itemIds":["id1","id2"],"reason":"...","stylingTips":"..."}]`;
+
     // Build context for AI
-    const wardrobeContext = wardrobeItems.map((item) => ({
-      id: item.id,
-      notes: item.notes,
-      colors: item.colors,
-      category: item.category,
-      season: item.season,
-      styleTags: item.styleTags,
-    }));
-
-    // Create prompt
-    const systemPrompt = `You are a fashion AI assistant. 
-    You help create stylish, culturally appropriate outfits from their wardrobe.
-    Consider modesty, local fashion trends, and seasonal weather in Tunisia.`;
-
-    const userPrompt = `Based on the following wardrobe items:
-${JSON.stringify(wardrobeContext, null, 2)}
-
-Create 1 outfit recommendations for:
-- Occasion: ${params.occasion || "casual"}
-- Weather: ${params.weather || "moderate"}
-${params.preferences?.colors ? `- Preferred colors: ${params.preferences.colors.join(", ")}` : ""}
-${params.preferences?.styles ? `- Preferred styles: ${params.preferences.styles.join(", ")}` : ""}
-
-For each outfit, provide:
-1. A creative name
-2. Which wardrobe item IDs to combine
-3. Why this combination works
-
-Return the response as a JSON array with this structure:
-[{
-  "name": "outfit name",
-  "itemIds": ["id1", "id2", "id3"],
-  "reason": "why this works",
-  "stylingTips": "tips for wearing this outfit"
-}]`;
 
     try {
       const aiResponse = await generateAIResponse(

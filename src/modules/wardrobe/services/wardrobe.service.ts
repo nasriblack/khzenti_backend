@@ -28,6 +28,21 @@ export class WardrobeService {
       },
     });
 
+    console.log("checking the condition", {
+      isPremium: user?.isPremium,
+      isActive: user?.isActive,
+      maxWardrobeItems: user?.maxWardrobeItems,
+      count: user?._count.wardrobeItems,
+      condition1: user?.isPremium && imageBuffer,
+      imageBuffer,
+      condition2:
+        !user?.isPremium &&
+        imageBuffer &&
+        user?.isActive &&
+        user?.maxWardrobeItems &&
+        user?._count.wardrobeItems <= user?.maxWardrobeItems,
+    });
+
     if (
       (user?.isPremium && imageBuffer) ||
       (!user?.isPremium &&

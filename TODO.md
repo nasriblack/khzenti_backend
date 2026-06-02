@@ -60,9 +60,37 @@
 
 
 # 02/06/2026
-- [ ] it's not that logical when the user map all the wardrobeItems and send it to the prompt ( check ai.service)
+- [X] it's not that logical when the user map all the wardrobeItems and send it to the prompt ( check ai.service)
     => Solution ( idea of me  ) naaemlo filter lel items bel weather eli mawjoud => maanaha kan it's cloudy w fama wind donc bech naaemlo filter aal hwayj chte   
-- [ ] Get the weather API response and used in the recommendation outfit
-- [ ] Add Real Image in DB to test with them
-- [ ] Generate recommendation with AI 
-- [ ] kan el user maandoch item fi khzenato , el ai mayaamloch generation outfit ! mais y9olo chnoa telbes w yensho 
+- [X] Get the weather API response and used in the recommendation outfit
+- [X] Add Real Image in DB to test with them
+- [X] Generate recommendation with AI 
+
+
+# NEXT TODO
+- [ ] 9it fama bug !! fel outfit generation aatani id mafamach !! 
+        w aatani recommendation mtaa shoes akhw , deja fel wardrobe items ali jabhom , jab fihom kan shoes , par contre ana aandi fel database hwayj !!
+        el ai medly kan zouz hajt akhw !! normalemnt ymedli akther ! 
+    hadhom el console log 
+        ```
+        checking the wardrobeItems [
+  {
+    id: 'cmpx507sc0003bkso62e9tese',
+    colors: [ 'blue', 'white' ],
+    category: 'SHOES',
+    styleTags: [ 'casual' ],
+    notes: 'shoes blue'
+  }
+]
+checking the rawWeather {
+  temp_c: 21.8,
+  wind_kph: 11.9,
+  cloud: 15,
+  chance_of_rain: 3,
+  will_it_rain: 0,
+  condition: 'Clear',
+  humidity: 75
+}
+        ```
+
+- [ ] kan el user maandoch item fi khzenato , el ai mayaamloch generation outfit ! mais y9olo chnoa telbes w yensho ( bel api weather)

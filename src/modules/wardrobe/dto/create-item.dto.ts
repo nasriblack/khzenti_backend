@@ -5,6 +5,7 @@ export enum Season {
   WINTER = "WINTER",
   SPRING = "SPRING",
   FALL = "FALL",
+  ALL = "ALL",
 }
 
 export enum Category {
