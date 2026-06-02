@@ -17,6 +17,8 @@ export class AIService {
     return weather_api;
   }
   async generateRecommendations(userId: string, params: RecommendationDTO) {
+    const weatherApi = await this.getTodayWeather(userId);
+
     // Get user's wardrobe items
     const wardrobeItems = await prisma.wardrobeItem.findMany({
       where: { userId },

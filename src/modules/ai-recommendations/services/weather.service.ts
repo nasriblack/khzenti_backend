@@ -11,6 +11,8 @@ export interface WeatherData {
   cloud: number;
   chance_of_rain: number;
   will_it_rain: number;
+  condition: string;
+  humidity: number;
 }
 
 /**
@@ -29,8 +31,6 @@ async function GetCurrentWeather(
     aqi: includeAqi ? "yes" : "no",
   });
 
-  console.log("checking the base url", BASE_URL);
-
   const response = await fetch(`${BASE_URL}/current.json?${params}`);
 
   if (!response.ok) {
@@ -48,6 +48,8 @@ async function GetCurrentWeather(
     cloud: data.current.cloud,
     chance_of_rain: data.current.chance_of_rain,
     will_it_rain: data.current.will_it_rain,
+    condition: data.current.condition.text,
+    humidity: data.current.humidity,
   };
 }
 

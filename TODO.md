@@ -65,3 +65,4 @@
 - [ ] Get the weather API response and used in the recommendation outfit
 - [ ] Add Real Image in DB to test with them
 - [ ] Generate recommendation with AI 
+- [ ] kan el user maandoch item fi khzenato , el ai mayaamloch generation outfit ! mais y9olo chnoa telbes w yensho 
