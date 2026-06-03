@@ -27,9 +27,9 @@ model User {
   name                  String?
   age                   Int?
   location              String?
-  maxWardrobeItems      Int                 @default(7)
-  maxOutfitGenerations  Int                 @default(5)
-  outfitGenerationsUsed Int                 @default(0)
+  maxWardrobeItems      Int                 @default(7) // how much the user have the limit of items
+  maxOutfitGenerations  Int                 @default(5) // how much the user have the limit of generation outfit
+  outfitGenerationsUsed Int                 @default(0) // a counter that have the user on outfit generation
   stylePreferences      String[]
   emailVerified         DateTime?
   isActive              Boolean             @default(true)
