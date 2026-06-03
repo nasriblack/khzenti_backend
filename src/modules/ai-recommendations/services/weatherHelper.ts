@@ -8,7 +8,7 @@ export interface WeatherContext {
 export function buildWeatherContext(w: WeatherData): WeatherContext {
   // Derive season from temperature
   let season: Season;
-  if (w.temp_c >= 28) season = Season.SUMMER;
+  if (w.temp_c >= 21) season = Season.SUMMER;
   else if (w.temp_c >= 18) season = Season.SPRING;
   else if (w.temp_c >= 10) season = Season.FALL;
   else season = Season.WINTER;

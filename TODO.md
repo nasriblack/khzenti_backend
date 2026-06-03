@@ -67,8 +67,8 @@
 - [X] Generate recommendation with AI 
 
 
-# NEXT TODO
-- [ ] 9it fama bug !! fel outfit generation aatani id mafamach !! 
+# 03/06/2026
+- [X] 9it fama bug !! fel outfit generation aatani id mafamach !! 
         w aatani recommendation mtaa shoes akhw , deja fel wardrobe items ali jabhom , jab fihom kan shoes , par contre ana aandi fel database hwayj !!
         el ai medly kan zouz hajt akhw !! normalemnt ymedli akther ! 
     hadhom el console log 
@@ -92,5 +92,7 @@ checking the rawWeather {
   humidity: 75
 }
         ```
+
+        => el mochkla fel bug , eli el filter deja jabet kan shoes wahed ( kan item ) lehna el filter ghalet !! 
 
 - [ ] kan el user maandoch item fi khzenato , el ai mayaamloch generation outfit ! mais y9olo chnoa telbes w yensho ( bel api weather)

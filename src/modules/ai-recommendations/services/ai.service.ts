@@ -46,9 +46,6 @@ export class AIService {
       },
     });
 
-    console.log("checking the wardrobeItems", wardrobeItems);
-    console.log("checking the rawWeather", rawWeather);
-
     if (wardrobeItems.length === 0) {
       throw new AppErrorClass(
         "No wardrobe items found. Please add items to your wardrobe first.",
