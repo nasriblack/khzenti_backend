@@ -5,6 +5,7 @@ import { AppErrorClass } from "../../../middleware/error.middleware";
 import GetCurrentWeather, { WeatherData } from "./weather.service";
 import { buildWeatherContext } from "./weatherHelper";
 import { Season } from "../../wardrobe/dto/create-item.dto";
+import { userService } from "../../users/services/user.service";
 
 export class AIService {
   async getTodayWeather(userId: string) {
@@ -22,7 +23,11 @@ export class AIService {
     // 1. Weather (single DB + API call)
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { location: true },
+      select: { location: true, outfitGenerationsUsed: true },
+    });
+
+    await userService.updateUser(userId, {
+      outfitGenerationsUsed: (user?.outfitGenerationsUsed ?? 0) + 1,
     });
 
     const rawWeather = (await GetCurrentWeather(
