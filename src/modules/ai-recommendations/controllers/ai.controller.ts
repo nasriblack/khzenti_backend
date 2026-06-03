@@ -1,13 +1,36 @@
 import { Request, Response, NextFunction } from "express";
 import { aiService } from "../services/ai.service";
-import { sendSuccess } from "../../../utils/response.util";
+import { sendError, sendSuccess } from "../../../utils/response.util";
 import { recommendationSchema } from "../dto/recommendation.dto";
+import { prisma } from "../../../config/database";
+import { AppErrorClass } from "../../../middleware/error.middleware";
 
 export class AIController {
   async getRecommendations(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.userId;
       const validated = recommendationSchema.parse(req.body);
+
+      const user = await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+        select: {
+          outfitGenerationsUsed: true,
+          maxOutfitGenerations: true,
+        },
+      });
+
+      if (
+        user?.outfitGenerationsUsed &&
+        user?.maxOutfitGenerations &&
+        user?.outfitGenerationsUsed >= user?.maxOutfitGenerations
+      ) {
+        throw new AppErrorClass(
+          "You have reached your outfit generation limit.",
+          "404",
+        );
+      }
 
       const recommendations = await aiService.generateRecommendations(
         userId,
