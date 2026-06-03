@@ -96,3 +96,4 @@ checking the rawWeather {
         => el mochkla fel bug , eli el filter deja jabet kan shoes wahed ( kan item ) lehna el filter ghalet !! 
 
 - [ ] kan el user maandoch item fi khzenato , el ai mayaamloch generation outfit ! mais y9olo chnoa telbes w yensho ( bel api weather)
+- [ ] lazem naaeml condition 9adeh men mara yenzel ou bien il fait le call mtaa el api recommendation outfit ( weather api contrainte)

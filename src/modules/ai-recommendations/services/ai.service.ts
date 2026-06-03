@@ -53,6 +53,15 @@ export class AIService {
       );
     }
 
+    if (wardrobeItems.length < 3) {
+      return {
+        success: false,
+        message:
+          "You don't have enough items to generate , be sure that u have more then 3 items on your wardrobe !",
+        weather: weather.summary,
+      };
+    }
+
     // 3. Build prompts
     const colorPref = params.preferences?.colors?.join(", ");
     const stylePref = params.preferences?.styles?.join(", ");
