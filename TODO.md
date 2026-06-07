@@ -56,7 +56,7 @@
 
 
 - [X] Get the Location of the connected user to send it in the prediction API 
-    - [ ] Not tested !
+    - [X] Not tested !
 
 
 # 02/06/2026
@@ -100,6 +100,7 @@ checking the rawWeather {
 
 
 # Next TODO
+- [ ] Save the response of the recommendation in the DB (by acceptance of the user)
 - [ ] Implement husky
 - [ ] Implement the lint stage
 - [ ] Implement the issue template on github
