@@ -101,6 +101,8 @@ checking the rawWeather {
 
 # Next TODO
 - [ ] Save the response of the recommendation in the DB (by acceptance of the user)
+- [ ] Implement logout 
+- [ ] Update the way that the back send token , the back need to send the token with cookies
 - [ ] Implement husky
 - [ ] Implement the lint stage
 - [ ] Implement the issue template on github
