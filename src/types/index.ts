@@ -14,13 +14,35 @@ export interface PaginatedResponse<T> {
   };
 }
 
-export const getPaginationParams = (page: string = '1', limit: string = '10'): PaginationParams => {
+export const getPaginationParams = (
+  page: string = "1",
+  limit: string = "10",
+): PaginationParams => {
   const pageNum = Math.max(1, parseInt(page) || 1);
   const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 10));
-  
+
   return {
     page: pageNum,
     limit: limitNum,
     skip: (pageNum - 1) * limitNum,
   };
 };
+
+export interface WhitelistDTO {
+  id: string;
+  email: string;
+  createdAt: Date;
+}
+
+export interface ServiceResult<T = any> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  statusCode?: number;
+}
+
+export interface SuccessResponse<T = any> {
+  success: true;
+  message: string;
+  data?: T;
+}

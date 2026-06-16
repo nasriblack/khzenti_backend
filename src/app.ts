@@ -13,6 +13,11 @@ import aiRoutes from "./modules/ai-recommendations/ai.routes";
 
 // Middleware
 import { errorHandler, notFoundHandler } from "./middleware/error.middleware";
+import {
+  validateWhitelistRequest,
+  whitelistLimiter,
+} from "./middleware/limitation.middleware";
+import { userController } from "./modules/users/controllers/user.controller";
 
 const app: Application = express();
 
@@ -52,6 +57,12 @@ app.use(`/api/${API_VERSION}/users`, userRoutes);
 app.use(`/api/${API_VERSION}/wardrobe`, wardrobeRoutes);
 app.use(`/api/${API_VERSION}/outfits`, outfitRoutes);
 app.use(`/api/${API_VERSION}/ai`, aiRoutes);
+app.post(
+  `/api/${API_VERSION}/waitlist`,
+  whitelistLimiter,
+  validateWhitelistRequest,
+  userController.addToWhitelist.bind(userController),
+);
 
 // 404 handler
 app.use(notFoundHandler);

@@ -98,6 +98,9 @@ checking the rawWeather {
 - [X] kan el user maandoch item fi khzenato , el ai mayaamloch generation outfit ! mais y9olo chnoa telbes w yensho ( bel api weather)
 - [X] lazem naaeml condition 9adeh men mara yenzel ou bien il fait le call mtaa el api recommendation outfit ( weather api contrainte)
 
+# 16/06/2026
+- [X] Implement the api whitelist
+
 
 # Next TODO
 - [ ] Save the response of the recommendation in the DB (by acceptance of the user)
